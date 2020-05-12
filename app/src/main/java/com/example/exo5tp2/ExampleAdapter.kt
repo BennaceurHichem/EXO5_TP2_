@@ -38,11 +38,12 @@ class ExampleAdapter(private val news: JSONArray) :
     override fun getItemCount() = news.length()
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
+            //binding the jsonObjects of news to UI data
         fun bind(newsItem: JSONObject, position: Int) {
             val title = itemView.findViewById(R.id.title) as TextView
             val description = itemView.findViewById(R.id.description) as TextView
-            //val image = itemView.findViewById(R.id.image) as NetworkImageView
+
+
             title.text = Html.fromHtml(newsItem["title"].toString(), 0)
             description.text = Html.fromHtml(newsItem["body"].toString(), 0)
 

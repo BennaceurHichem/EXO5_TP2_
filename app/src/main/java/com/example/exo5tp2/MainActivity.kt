@@ -7,11 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
-import com.android.volley.Request.Method.GET
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
@@ -36,20 +35,13 @@ import org.json.JSONObject
 
 
 
-        val request = JsonObjectRequest(
+        val request = JsonArrayRequest(
           Request.Method.GET, url, null,
-          Response.Listener<JSONObject> { response ->
-    //the problem is in geting an array with no name like this case in jsonplaceholser
-            val todos:JSONArray
-            for (i in 0 until response.length()) {
-              val title = response.getString("title")
-              val desc = response.getString("description")
+          Response.Listener<JSONArray> { response ->
 
-              print("item :"+i+"  "+title)
-              // Your code here
-            }
-            val news = response.getJSONArray("0")
-            print("news : "+news)
+              //store repsonse in news
+              val news= response
+            //binding o the jsonArray is on th ExampleAdapter in the bind method
             recycler_view.adapter = ExampleAdapter(news)
           },
           Response.ErrorListener {
